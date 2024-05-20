@@ -261,7 +261,7 @@ function perlin(x, y ,se){
 
 function initPoint(X,Y,Z){
     point = []
-    var s = 0.15
+    var s = 0.25
     var mp = 5
     var scl = 1
 
