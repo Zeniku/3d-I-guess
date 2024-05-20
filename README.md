@@ -1,5 +1,7 @@
 ## 3d I guess
-I made this because I was interested in coding again but it is very laggy
+I made this because I was interested in coding again
+
+local host gave me an ok frame rate but it is very laggy when hosted here
 
 check it out on **https://zeniku.github.io/3d-I-guess**
 
