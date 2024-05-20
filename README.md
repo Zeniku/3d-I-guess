@@ -1,6 +1,11 @@
 ## 3d I guess
-I made this because I was interested in coding again
-check it out on https://zeniku.github.io/3d-I-guess
+I made this because I was interested in coding again but it is very laggy
+
+check it out on **https://zeniku.github.io/3d-I-guess**
+
+### Movement 
 movement was only coded via mobile
 don't expect movement if you are using pc
-this is a fork code from spck user speeding-copenhagen70
+
+### It's a Fork
+this is a fork code from spck user speeding-copenhagen70 entitled **3d Render Basic**
