@@ -8,7 +8,6 @@ function pInsideScreen(x, y){
     )
   }
 var line = (x1,y1,x2,y2,c) => {//linha
-    
     draw.beginPath();
     draw.moveTo(x1,y1);
     draw.lineTo(x2,y2);
@@ -86,7 +85,7 @@ var mx = 1,mnx = -1 , my = 1 , mny = -1 ;
  }
  let triangles = []
  function renderPoints(p,i){
-   
+  if(!(view == 0 || view == 1)) return;
   var projectedPoint = project(p);
   let x = projectedPoint[0], y = projectedPoint[1];
   
@@ -99,14 +98,7 @@ var mx = 1,mnx = -1 , my = 1 , mny = -1 ;
     p2 = renderedPoints[i1]
     p3 = renderedPoints[ic1]
   }
-  let p4 = undefined
-  
-  if(view == 2 || view == 3){
-    p1 = renderedPoints[i] 
-    p4 = renderedPoints[ic]
-  }
-  
-  if(p2 != undefined && p3 != undefined && p4 ){
+  if(p2 != undefined && p3 != undefined){
     if (!pInsideScreen(p1[0], p1[1]) &&
       !pInsideScreen(p2[0], p2[1]) &&
       !pInsideScreen(p3[0], p3[1]) &&
@@ -114,37 +106,50 @@ var mx = 1,mnx = -1 , my = 1 , mny = -1 ;
     ) return;
   }
   
-  let isExistP1 = isBetweenfliwflow(p1),
-    isExistP2 = isBetweenfliwflow(p2),
-    isExistP3 = isBetweenfliwflow(p3),
-    isExistP4 = isBetweenfliwflow(p4);
-  
   if(view == 0) line(x,y,x,y+1)
   
   if(view == 1){
-    if(isExistP1) line(x,y,p1[0],p1[1])
-    if(isExistP2) line(x,y,p2[0],p2[1])
-    if(isExistP3) line(x,y,p3[0],p3[1])
+    if(isBetweenfliwflow(p1)) line(x,y,p1[0],p1[1])
+    if(isBetweenfliwflow(p2)) line(x,y,p2[0],p2[1])
+    if(isBetweenfliwflow(p3)) line(x,y,p3[0],p3[1])
   }
+ }
+function setTriangles(p, i){
+  if(!(view == 2 || view == 3)) return 
+    
+  let ic = i+c, i1 = i+1, ic1 = i+c+1;
   
-  if(!(isExistP1 && isExistP2 && isExistP3 && isExistP4)) return;
-  if(view == 2 || view == 3){
+  let p1 = renderedPoints[i]
+  let p2 = undefined, p3 = undefined;
+  let p4 = renderedPoints[ic]
+  if(cont < c){
+    p2 = renderedPoints[i1]
+    p3 = renderedPoints[ic1]
+  }
+  if(!(isBetweenfliwflow(p1) &&
+    isBetweenfliwflow(p2) &&
+    isBetweenfliwflow(p3) &&
+    isBetweenfliwflow(p4)
+  )) return;
+  if (!pInsideScreen(p1[0], p1[1]) &&
+    !pInsideScreen(p2[0], p2[1]) &&
+    !pInsideScreen(p3[0], p3[1]) &&
+    !pInsideScreen(p4[0], p4[1])
+  ) return;
+  
     let fstyle1 = "#fff",
-        fstyle2 = "#fff";
-    if(view == 3){
+      fstyle2 = "#fff";
+    if (view == 3){
       let r = 255 - abs(point[i][1] * 100),
-          g1 = 255 - abs(point[ic][1] * 100),
-          g2 = 255 - abs(point[i1][1] * 100),
-          b = 255 - abs(point[ic1][1] * 100);
+        g1 = 255 - abs(point[ic][1] * 100),
+        g2 = 255 - abs(point[i1][1] * 100),
+        b = 255 - abs(point[ic1][1] * 100);
       fstyle1 = `rgb(${r},${g2}, ${b})`
       fstyle2 = `rgb(${r},${g1}, ${b})`
     }
     triangles.push([p1, p2, p3, fstyle1])
     triangles.push([p1, p4, p3, fstyle2])
-  }
-  return
- }
- 
+}
 function renderTriangles() {
   if(!(view == 2 || view == 3)) return;
   //takes point z avarage then sort which is closest
@@ -159,10 +164,11 @@ function renderTriangles() {
     if (view == 3) triangleShadow(t[0], t[1], t[2], t[3])
   })
 }
+
  function returnPoints(p,i){
-     var projectedPoint = project(p);
-     var x = projectedPoint[0];
-     var y = projectedPoint[1];
+     let projectedPoint = project(p);
+     let x = projectedPoint[0];
+     let y = projectedPoint[1];
      
     return [x,y,p[2]]
  }
@@ -261,9 +267,9 @@ function perlin(x, y ,se){
 
 function initPoint(X,Y,Z){
     point = []
-    var s = 0.25
-    var mp = 5
-    var scl = 1
+    let s = 0.25
+    let mp = 5
+    let scl = 1
 
     a = 1
     seed = 1
@@ -333,6 +339,7 @@ function main(){
         if(p[2] <= flow && p[2] >= fliw && p[0] > -w/2 && p[0] < w/2 ){
           renderPoints(p,i)
         }
+        setTriangles(p, i)
     })
     renderTriangles()
     if(ry > 1.50){
