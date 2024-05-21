@@ -1,6 +1,5 @@
 class Mathf {
   static {
-    this.rand = new Rand(0);
     this.PI = 3.1415927;
     this.pi = this.PI; 
     this.halfPi = this.PI/2;
