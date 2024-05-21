@@ -2,7 +2,7 @@
   *{
       padding: 0;
       margin: 0;
-      /*image-rendering: pixelated;*/
+      image-rendering: pixelated;
       background: #0E0E0E;
   }  
 </style>
@@ -12,6 +12,6 @@
 <input id="zoom" min=1 value=1 max=20 type='range' oninput="let zoom = document.getElementById('zoom').value" style="position: fixed; z-index: 10"></input>
 <canvas onclick="set()" style="position: fixed"></canvas>
 </body>
-<script src = Rand.js ></script>
+
 <script src = Mathf.js ></script>
 <script src = index.js ></script>
