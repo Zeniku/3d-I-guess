@@ -1,9 +1,14 @@
 ## 3d I guess
 I made this because I was interested in coding again
-
-local host gave me an ok frame rate but it is very laggy when hosted here
-
 check it out on **https://zeniku.github.io/3d-I-guess**
+
+### Issues
+local host gave me an ok frame rate 
+the rendering of triangles when it is not inside of the screen works ok in the local host
+
+but the triangles have the reverse results when rendering them in the hosted site 
+instead of higher frame rate when zoomed in
+it goes lower and vice versa 
 
 ### Movement 
 movement was only coded via mobile
