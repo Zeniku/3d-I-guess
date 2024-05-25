@@ -9,9 +9,6 @@ let ry = -0.45
 let flow = 10
 let fliw = -10
 let opera = 0
-let obg = ""
-
-
 
 let w = 0;
 let h = 0;
@@ -287,9 +284,10 @@ function perlin(x, y, se) {
 }
 
 function initPoint(X, Y, Z) {
+  c = 0
   point = []
-  let s = 0.3
-  let mp = 6
+  let s = 0.25 * (1+ (parseInt(zoom.value) / 50))
+  let mp = 7
   let scl = 1
 
   a = 1
@@ -305,8 +303,10 @@ function initPoint(X, Y, Z) {
 }
 
 function main() {
-  //renderedPoints=[]
+  renderedPoints=[]
   //rx+=0.005
+  triangles = []
+  initPoint(0,0,0)
   opera++
   w = innerWidth;
   h = innerHeight;
@@ -324,12 +324,9 @@ function main() {
 
 
   cont = 0
-  obg = ""
   hh++
-  triangles = []
 
   point.forEach(function(p, i) {
-    obg += `v  ${p[0]} , ${p[1]} , ${p[2]} ;`
 
     p[1] = perlin(p[0], p[2], hh / 25)
     if (!(ax - nx == 0) || !(ax - ny == 0)) {
@@ -337,7 +334,6 @@ function main() {
       p = rotateY(p, ry)
     }
     renderedPoints[i] = returnPoints(p)
-
     //setTriangles(p, i)
   })
   point.forEach((p, i) => {
@@ -360,7 +356,7 @@ function main() {
   loop(main)
 }
 
-initPoint(0, 0, 0)
+//initPoint(0, 0, 0)
 
 main()
 canvas.addEventListener("touchmove", function(e) {
