@@ -36,7 +36,6 @@ class Mathf {
   static sinDeg(degrees){
     return this.sinTable[Math.round(degrees * this.degToIndex) & this.sinMask];
   }
-
     /** Returns the cosine in radians from a lookup table. */
   static cosDeg(degrees){
     return this.sinTable[Math.round((degrees + 90) * this.degToIndex) & this.sinMask];
@@ -54,13 +53,33 @@ class Mathf {
   static angle(x, y){
     let ang = Math.atan2(y, x) * this.radiansToDegrees
     if(ang < 0) ang += 360
-    //console.log(Math.atan2(y, x))
     return ang
   }
   static angleTo(x1, y1, x2, y2){
     let dx = x2 - x1
     let dy = y2 - y1
-    //console.log(x1, x2,dx, dy)
     return this.angle(dx, dy)
+  }
+  static rotatePX(p, r){
+    p[0] = this.cos(r) * p[0] - this.sin(r) * p[2]
+    p[2] = this.sin(r) * p[0] + this.cos(r) * p[2]
+  }
+  static rotatePY(p, r){
+    p[1] = this.cos(r) * p[1] - this.sin(r) * p[2]
+    p[1] = this.sin(r) * p[1] + this.cos(r) * p[2]
+  }
+  static rotateX(p, r) {
+    return [
+        this.cos(r) * p[0] - this.sin(r) * p[2],
+        p[1],
+        this.sin(r) * p[0] + this.cos(r) * p[2]
+      ]
+  }
+  static rotateY(p, r) {
+    return [
+        p[0],
+        this.cos(r) * p[1] - this.sin(r) * p[2],
+        this.sin(r) * p[1] + this.cos(r) * p[2]
+      ]
   }
 }

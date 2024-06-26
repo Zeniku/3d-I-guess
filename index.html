@@ -9,9 +9,21 @@
 <body>
     <meta utf8>
     
-<input id="zoom" min=1 value=1 max=20 type='range' oninput="let zoom = document.getElementById('zoom').value" style="position: fixed; z-index: 10"></input>
-<canvas onclick="set()" style="position: fixed"></canvas>
+<input id="zoom" min=1 value=1 max=100 type='range' oninput="let zoom = document.getElementById('zoom').value" style="
+margin: 10px;
+margin-top: 100px;
+position: fixed;
+z-index: 10;
+height: 10%;
+width: 15%;
+transition: background 450ms ease-in;
+border-radius: 25px;"></input>
+<canvas onclick="set()" style="position: fixed; image-rendering: pixelated;"></canvas>
 </body>
-
-<script src = Mathf.js ></script>
-<script src = index.js ></script>
+<script src = "./scripts/Global.js"></script>
+<script src = "./scripts/Mathf.js" ></script>
+<script src = "./scripts/Draw.js"></script>
+<script src = "./scripts/TouchHandler.js"></script>
+<script src = "./scripts/World.js"></script>
+<script src = "./scripts/Projector.js"></script>
+<script src = "./main.js" ></script>
