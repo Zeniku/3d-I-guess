@@ -6,15 +6,14 @@ let deltaTime = 0
 requestAnimationFrame(
   function loop() {
     now = Date.now();
-    deltaTime = (now - before) / (1000 / 60);
-    fps = Math.round(1000 / (now - before));
+    let dif = now - before
+    fps = Math.round(1000 / dif);
+    deltaTime =  dif / (1000 / 60);
     before = now;
     requestAnimationFrame(loop);
   }
 );
 let grid = new World()
-grid.setGridWorld(0, 0, 0, .1, 2, 0)
-
 function main() {
   
   opera++
@@ -23,13 +22,13 @@ function main() {
   canvas.width = w;
   canvas.height = h;
   grid.updateGridPoints(Projector.time)
-  Projector.projectWorld(grid)
-  Projector.render(grid)
+  Projector.render(grid).reset()
   loop(main)
 }
-
-TouchHandler.init()
-main()
+window.onload = e => {
+  TouchHandler.init()
+  main()
+}
 
 function set() {
   view += 1

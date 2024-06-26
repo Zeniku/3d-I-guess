@@ -43,9 +43,7 @@ class World {
     this.triangleCol = []
   }
   updateGridPoints(time){
-    this.points.forEach(p => {
-      p[1] = perlin(p[0], p[2], time * 0.04)
-    })
+    this.setGridPointHeight(time * 0.04)
     let zoomV = parseInt(zoom.value)
     if(this.lastZoomVal == zoomV) return 
     this.points = []
@@ -54,13 +52,17 @@ class World {
     this.setGridWorld(0,0,0,.25  * (1 + (parseInt(zoom.value) / 25)), 7 + (Math.floor(parseInt(zoom.value)/ 4)),time * 0.04)
     this.lastZoomVal = zoomV
   }
-  setGridPoints(X, Y, Z, stepSize, mp, seed){
+  setGridPointHeight(seed){
+    this.points.forEach(p => {
+      p[1] = perlin(p[0], p[2], seed)
+    })
+  }
+  setGridPoints(X, Y, Z, stepSize, mp){
   let rowLength = 0
     for (let x = -mp; x <= mp; x += stepSize) {
       rowLength++
       for (let z = -mp; z <= mp; z += stepSize) {
-        let y = perlin(x,z,seed)
-        this.points.push([(x + X) , (y + Y), (z + Z)]);
+        this.points.push([(x + X) , (Y), (z + Z)]);
       }
     }
     return rowLength

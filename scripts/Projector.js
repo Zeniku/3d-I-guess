@@ -58,7 +58,7 @@ class Projector {
       let j = Mathf.rotateX(p, TouchHandler.rx)
       j = Mathf.rotateY(j, TouchHandler.ry)
       
-      this.projectedPoints[i] = returnPoints(j)
+      this.projectedPoints.push(returnPoints(j))
     })
   }
   static triangleGridColors(world){
@@ -75,7 +75,7 @@ class Projector {
     }
   }
   static projectTriangles(world){
-    world.triangles.forEach((t, i) => {
+    world.triangles.forEach((t, i, a) => {
       let projectedT = []
       t.forEach(p => {
         let j = Mathf.rotateX(p, TouchHandler.rx) 
@@ -84,6 +84,8 @@ class Projector {
         projectedT.push(projectedP)
       })
       projectedT.push(i)
+      projectedT.push(world)
+      
       if(this.ccw(projectedT[1], projectedT[2], projectedT[0]) < 0) return
       if(!this.checkExistanceT(projectedT)) return
       this.projectedTriangles.push(projectedT)
@@ -98,7 +100,6 @@ class Projector {
   static ccw(a, b, c) {
    return ((b[0] - a[0]) * (c[1] - a[1])) - ((c[0] - a[0]) * (b[1] - a[1]));
   }
-  
   static renderTriangles(wireframe, world){
     if(!wireframe) {
       this.projectedTriangles.sort((a, b) => {
@@ -109,8 +110,7 @@ class Projector {
     }
     
     this.projectedTriangles.forEach(t => {
-      
-      let tricol = world.triangleCol[t[3]]
+      let tricol = t[4].triangleCol[t[3]]
       if(view == 2) tricol = undefined 
       this.renderedtriangleCount++
       triangle(t[0], t[1], t[2], tricol, !wireframe, tricol)
@@ -121,24 +121,31 @@ class Projector {
     this.triangleGridColors(world)
     if(view != 0) this.projectTriangles(world)
   }
-  static render(world){
-    //rect(0, 0, w, h, "#87CEEB"); //background
-    draw.clearRect(0,0,w,h)
-    this.time += deltaTime
-    if(view == 0) this.renderPoints()
-    if(view != 0) this.renderTriangles((view == 1), world)
+  static renderStat(world){
     text("renderedTriangles " + this.renderedtriangleCount, 10, 90)
-    this.projectedPoints = []
-    this.projectedTriangles = []
-    this.renderedtriangleCount = 0
-    
     text("points " + world.points.length, 10, 30)
     text("FPS " + fps + "    " + Math.floor((fps * 100) / 70) + "% fps ", 10, 50)
     text("opera " + Math.floor(opera / 10) + " seg", 10, 60)
     text("seed " + seed + " ", 10, 70)
-    text("ver 0.0.2", w - 60, h - 20)
+    text("ver 0.1.0", w - 60, h - 20)
     text("alpha", w - 60, h - 30)
     
     line(TouchHandler.x, TouchHandler.y, TouchHandler.lx, TouchHandler.ly)
+  }
+  static render(world){
+    rect(0, 0, w, h, "#87CEEB"); //background
+    //draw.clearRect(0,0,w,h)
+    this.time += deltaTime
+    this.projectWorld(world)
+    if(view == 0) this.renderPoints()
+    if(view != 0) this.renderTriangles((view == 1), world)
+    this.renderStat(world)
+    
+    return this
+  }
+  static reset(){
+    this.projectedPoints = []
+    this.projectedTriangles = []
+    this.renderedtriangleCount = 0
   }
 }
