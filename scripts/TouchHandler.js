@@ -19,19 +19,31 @@ class TouchHandler {
       this.lx = e.touches[0].clientX
       this.ly = e.touches[0].clientY
       this.setT = false
+      return; // Return early to establish baseline
     }
   
-    this.x = e.touches[0].clientX
-    this.y = e.touches[0].clientY
+    // 1. Get current position
+    let currentX = e.touches[0].clientX;
+    let currentY = e.touches[0].clientY;
+
+    this.x = currentX;
+    this.y = currentY;
   
-    this.distx = (this.lx - this.x) * 0.01
-    this.disty = (this.ly - this.y) * 0.01
-    this.rx += this.distx * deltaTime
-    this.ry += this.disty * deltaTime
+    // 2. Calculate Distance (Delta) from LAST frame
+    // FIXED: Do not use velocity over time, use absolute pixel difference
+    this.distx = (this.lx - currentX) * 0.01;
+    this.disty = (this.ly - currentY) * 0.01;
+
+    // 3. Apply Delta
+    // FIXED: Removed deltaTime. Rotation is 1:1 with finger movement.
+    this.rx += this.distx;
+    this.ry += this.disty;
     
     this.constraint()
-    this.lx = e.touches[0].clientX
-    this.ly = e.touches[0].clientY
+
+    // 4. Update Last Position for next frame
+    this.lx = currentX;
+    this.ly = currentY;
   }
   static touchEnd(e){
     this.setT = true
