@@ -5,6 +5,9 @@ check it out on **https://zeniku.github.io/3d-I-guess**
 
 ### Update
 - shitty GLDraw
+- still Shitty GLDraw cause it 2d not 3d
+- chunk culling
+- joystick movement
 - Changed Everything,
 - shitty Simplex noise
 - shitty view 5
