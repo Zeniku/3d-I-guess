@@ -11,6 +11,7 @@ check it out on **https://zeniku.github.io/3d-I-guess**
 - Changed Everything,
 - shitty Simplex noise
 - shitty view 5
+- does not work on web :(
 
 ### Issues
 - this was made with a 2D canvas in mind so the sorting of triangles in according to depth is bad and not in GL but in Javascript Side, i mean its not proper
