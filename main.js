@@ -8,8 +8,8 @@ let projectionMatrix = new Float32Array([
 ]);
 Draw.init(gl);
 Draw.setMatrix(projectionMatrix);
-let grid = new World();
-
+let grid = new TestWorld();
+grid.init()
 /**
  * Handles resizing the canvas and updating the WebGL viewport 
  * and projection matrix to match the new dimensions.
@@ -40,13 +40,40 @@ function main() {
   before = now;
   
   opera++; // Simulation tick counter
+  
+  
+moveJoy.update(currentTouches, h);
 
+// 2. Define your rotation angle (Yaw)
+const angleX = TouchHandler.rx;
+//const angleY = TouchHandler.ry;
+const speed = 0.4 * deltaTime;
+
+// 3. Rotate the joystick vector
+// We calculate how much of the "Push" goes into World-X and World-Z
+// Note: If movement feels 'flipped', change the signs (+/-) below.
+let dx = (moveJoy.inputX * Math.cos(angleX)) + (moveJoy.inputZ * Math.sin(angleX));
+let dz = (moveJoy.inputZ * Math.cos(angleX)) - (moveJoy.inputX * Math.sin(angleX));
+
+// 4. Update the Camera Position
+TouchHandler.tx += dx * speed;
+TouchHandler.tz += dz * speed;
+// 3. Render 3D World (This calls projectPoints, which now applies tx and tz!)
+grid.updateGridPoints(TouchHandler.tx,0,TouchHandler.tz,Projector.time);
+Projector.chunkRender(grid).reset();
+
+// 4. Render UI
+Draw.begin();
+moveJoy.draw();
+Draw.end();
+
+  //requestAnimationFrame(main);
   // 2. Update logic
-  grid.updateGridPoints(Projector.time);
+  
 
   // 3. Render logic
   // Projector.render now handles gl.clear and Draw.begin/end
-  Projector.render(grid).reset();
+  //Projector.render(grid).reset();
 
   // 4. Request next frame
   requestAnimationFrame(main);
@@ -67,8 +94,14 @@ window.onload = (e) => {
 // Toggle view modes
 function set() {
   view += 1;
-  Projector.triangleGridColors(grid)
+  grid.triangleGridColors()
   if (view > 4) {
     view = 0;
   }
 }
+// Inside your requestAnimationFrame loop in main.js:
+
+// 1. Get Joystick Input
+
+// 1. Get the joystick input
+

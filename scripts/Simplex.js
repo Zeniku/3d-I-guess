@@ -122,7 +122,7 @@ class Simplex {
 
         for (let i = 0; i < octaves; i++) {
             // Arc usually maps the -1 to 1 range, though you can adjust it to 0 to 1 if needed
-            total += ((1 - Math.abs(this.rawNoise2D(x * frequency, y * frequency) * amplitude)) * 2) - 1;
+            total += ((1 - Math.abs(this.rawNoise2D(x * frequency, y * frequency) * amplitude))*2) - 1;
             
             maxAmplitude += amplitude;
             amplitude *= falloff;
@@ -132,4 +132,4 @@ class Simplex {
         return total / maxAmplitude; // Normalizes the result back to roughly [-1, 1]
     }
 }
-let simplex = new Simplex(6)
+let simplex = new Simplex(16)
