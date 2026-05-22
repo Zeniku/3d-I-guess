@@ -2,15 +2,11 @@
 let canvas = document.querySelector("canvas");
 
 // Change context to WebGL
-let gl = canvas.getContext("webgl", { alpha: false }) || canvas.getContext("experimental-webgl");
-
-// Initialize the GLDraw library
-
-
-let row = 0;
-let flow = 100;
-let fliw = -100;
-let opera = 0;
+// Try WebGL 2 first, then fall back to WebGL 1 if it fails
+let gl = canvas.getContext("webgl2", { alpha: false }) || 
+         canvas.getContext("webgl", { alpha: false }) || 
+         canvas.getContext("experimental-webgl");
+let global = {}
 
 let w = 0;
 let h = 0;
@@ -32,7 +28,7 @@ let before, now, fps;
 before = Date.now();
 fps = 0;
 
-// --- Helper Functions kept from original ---
+
 function craterFunction(n, x, y, centerX, centerY, radius, minDepth) {
   let cx = x - centerX,
     cy = y - centerY;

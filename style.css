@@ -1,3 +1,136 @@
-body {
-    font-size: 15pt;
+:root {
+  --bg: #0f172a;
+  --panel-bg: rgba(15, 23, 42, 0.95);
+  --header-bg: #1e293b;
+  --border: #334155;
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent: #3b82f6;
+  --danger: #ef4444;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  height: 100%;
+}
+
+.panel {
+  position: fixed;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  cursor: grab;
+  user-select: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.panelHeader:active {
+  cursor: grabbing;
+}
+
+.panelContent {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* --- Control Components --- */
+
+.box {
+  width: 100%;
+}
+
+.panelText {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  font-family: 'JetBrains Mono', monospace; /* Optional: gives it a technical feel */
+}
+
+.button {
+  width: 100%;
+  padding: 8px;
+  background: var(--border);
+  color: var(--text);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+
+.button:hover {
+  background: #475569;
+  border-color: var(--accent);
+}
+
+.button:active {
+  background: var(--accent);
+  color: white;
+}
+
+/* --- Inputs --- */
+
+input[type="number"] {
+  width: 100%;
+  padding: 6px;
+  background: #020617;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--accent);
+  font-family: inherit;
+}
+
+input[type="range"] {
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+/* --- Vector List Items --- */
+
+.vectorItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+
+.vectorItem:hover {
+  border-color: var(--border);
+}
+
+/* --- Icons / Tiny Buttons --- */
+
+.panelCollapse, .panelClose {
+  font-size: 16px;
+  padding: 0 4px;
+  opacity: 0.6;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.panelCollapse:hover { opacity: 1; color: var(--accent); }
+.panelClose:hover { opacity: 1; color: var(--danger); }

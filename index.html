@@ -1,31 +1,36 @@
-<style>
-  *{
-      padding: 0;
-      margin: 0;
-      image-rendering: pixelated;
-      background: #0E0E0E;
-  }  
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> its 3d kewk</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <meta utf8>
     
-<input id="zoom" min=1 value=1 max=100 type='range' oninput="let zoom = document.getElementById('zoom').value" style="
-margin: 10px;
-margin-top: 100px;
-position: fixed;
-z-index: 10;
-height: 10%;
-width: 15%;
-transition: background 450ms ease-in;
-border-radius: 25px;"></input>
+
 <canvas onclick="set()" style="position: fixed; image-rendering: pixelated;"></canvas>
-</body>
 <script src = "./scripts/Global.js"></script>
-<script src = "./scripts/GLDraw.js"></script>
+<script src = "./scripts/Matrix4.js"></script>
+<script src = "./scripts/gl/Shaders.js"></script>
+<script src = "./scripts/gl/Graphics.js"></script>
+<script src = "./scripts/gl/Draw.js"></script>
+  <script src="./scripts/ui/Box.js"></script>
+  <script src="./scripts/ui/Panel.js"></script>
+  <script src="./scripts/ui/Button.js"></script>
+  <script src="./scripts/ui/Slider.js"></script>
+<script src="./scripts/ui/NumberInput.js"></script>
+<script src="./scripts/ui/WindowPanel.js"></script>
 <script src = "./scripts/Rand.js" ></script>
 <script src = "./scripts/Mathf.js" ></script>
 <script src = "./scripts/Simplex.js"></script>
 <script src = "./scripts/TouchHandler.js"></script>
-<script src = "./scripts/World.js"></script>
-<script src = "./scripts/Projector.js"></script>
+<script src = "./scripts/world/Chunk.js"></script>
+<script src = "./scripts/world/World.js"></script>
+<script src = "./scripts/world/PlanetBuilder.js"></script>
+<script src = "./scripts/gl/Projector.js"></script>
 <script src = "./main.js" ></script>
+</body>
+</html>
