@@ -54,7 +54,7 @@ class Draw {
     
     // 1. Light Direction (Top-down slanted)
     const locLight = gl.getUniformLocation(this.prog3D, "u_lightDir");
-    gl.uniform3f(locLight, 0.5, 1.0, 0.3);
+    gl.uniform3f(locLight, global.lightx, 1.0, global.lightx);
 
     // 2. Fog Color (Matching your clearColor/Sky)
     const locFog = gl.getUniformLocation(this.prog3D, "u_fogColor");
